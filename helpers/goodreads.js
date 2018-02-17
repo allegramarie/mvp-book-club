@@ -1,10 +1,10 @@
 const request = require('express');
-const config = process.env.token || require('../config.js');
+const config = require('../config.js');
 const goodReadsJSONResponse = require('goodreads-json-api');
 const https = require('https');
 
 var jsonConversion = function(query, callback){ 
-	var url = `https://www.goodreads.com/book/title.xml?key=${config.token}&title=${query}`;
+	var url = `https://www.goodreads.com/book/title.xml?key=${config.TOKEN}&title=${query}`;
 	//if search by title fails, search will default to author
 	https.get(url, (res) => {
     const options = {
