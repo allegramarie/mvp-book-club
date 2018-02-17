@@ -21,15 +21,15 @@ var booksSchema = new Schema({
 
 var Books = mongoose.model('Books', booksSchema);
 
-var fetch = (books) => {
+let fetch = (books) => {
 //should pull the title of previous searches from the database
 	return Books.find({}).sort('id').limit(5).exec();
 }
 
-var add = (books) => {
+let add = (books) => {
 //should add searches to the database
 console.log("Books to add", books)
-	return Books.save(books, function(err, record){
+	return Books.create(books, function(err, record){
 		if(err){
 			console.log("error at", err)
 		}
@@ -37,3 +37,4 @@ console.log("Books to add", books)
 }
 
 module.exports.fetch = fetch;
+module.exports.add = add;

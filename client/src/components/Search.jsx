@@ -4,7 +4,7 @@ class Search extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			term: ''
+			term: '' || 'Lahiri'
 		}
 		this.onChange = this.onChange.bind(this);
 		this.search = this.search.bind(this);
@@ -16,7 +16,8 @@ class Search extends React.Component {
 		});
 	}
 
-	search() {
+	search(e) {
+		e.preventDefault();
 		this.props.onSearch(this.state.term)
 	}
 

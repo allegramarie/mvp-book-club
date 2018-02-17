@@ -12,38 +12,42 @@ class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = { 
-      book: []
+      book: {},
+      author: {},
+      similar_books: [{}]
     }
-	}
-
-	ComponentDidMount(){
-		// search('Lahiri');
 	}
 
 	search(term){
 		console.log(`${term} was searched!`)
-		axios.post('/', {
+		axios.post('/books', {
 			title: term
 		})
-		.then(() => {
-			axios.get('/')
-				.then((res) => {
-					console.log("in axios get", res, res.data)
-					this.setState({
-						book: res.data
-					})
-				})
+		.then((res) => {
+			console.log("This is data", res.data)
+			this.setState({
+				book: res.data.book,
+				author: res.data.author,
+				similar_books: res.data.similar_books
+			})	
 		})
+
 	}
 
 	render(){
-		return (<div>
-			<h1>Book Club</h1>
-			<Search onSearch={this.search.bind(this)}/>
-			<Cover book={this.state.book}/>
-			<Reviews book={this.state.book}/>
-			<Related book={this.state.book}/>
-			<History/>
+		return !this.state.book 
+		? (<div> loading... </div>) 
+		: (<div>
+				<h1>Book Club</h1>
+				<Search onSearch={this.search.bind(this)}/>
+				<div className = "row">
+				{console.log("State?", this.state.book)}
+					<Cover book={this.state.book}/>
+				</div>
+
+				<div className = "row">
+					<Related book={this.state.book} related={this.state.similar_books}/>
+				</div>
 		</div>)
 	}
 }

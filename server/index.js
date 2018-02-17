@@ -8,29 +8,22 @@ var goodReadsJSONResponse = require('../helpers/goodreads.js')
 let app = express();
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
-// console.log(path.join(__dirname, '../client/dist'));
 app.use(parse.json())
 
-// app.get('/',
-//   function(req, res) {
-//     res.status(200).send('index')
-//  });
-
-app.get('/', function(req, res){
+app.post('/books', function(req, res){
 	//get request from the user
-	console.log(req.body)
+	console.log(req.body.title)
 	goodReadsJSONResponse(req.body.title, function andThenSend(data){
-		console.log("Title on post", data.book.title)
+		add(data);
 		res.status(201).send(data);
-	})
+		})
 	//sending a post request to the express server
 	
 })
 
-app.post('/', function(req, res){
-	fetch().then((data) => {
+app.get('/books', function(req, res){
+		fetch().then((data) => {
 		console.log("Request data on app.post", data)
-		add(data);
 		res.status(200).send(data);
 	})
 })
