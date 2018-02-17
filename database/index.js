@@ -1,5 +1,9 @@
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/bookclub');
+if(process.env.PORT){
+	mongoose.connect('mongodb://<mlab-user>:<mlab-password>@ds239368.mlab.com:39368/book-club0799');
+} else {
+	mongoose.connect('mongodb://localhost/bookclub');
+}
 var db = mongoose.connection;
 var Schema = mongoose.Schema;
 
