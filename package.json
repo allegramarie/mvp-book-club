@@ -4,14 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon server/index.js",
+    "start": "npm i -g webpack && npm run react-dev & npm run server-dev",
+    "start-dev": "node server/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "goodreads-json-api": "^1.0.4"
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "goodreads-json-api": "^1.0.4",
+    "jquery": "^3.3.1",
+    "mongodb": "^3.0.2",
+    "mongoose": "^5.0.6",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "nodemon": "^1.15.0",
     "webpack": "^3.11.0"
   }
