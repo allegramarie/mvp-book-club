@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 if(process.env.PORT){
-	mongoose.connect('mongodb://<mlab-user>:<mlab-password>@ds239368.mlab.com:39368/book-club0799');
+	mongoose.connect('mongodb://user:forest@ds239368.mlab.com:39368/book-club0799');
 } else {
 	mongoose.connect('mongodb://localhost/bookclub');
 }
@@ -11,14 +11,16 @@ var Schema = mongoose.Schema;
 var booksSchema = new Schema({
 	id: {
 		type: Number, 
-		unique: true
 	},
 	author: {
 		name: String
 	},
 	book: {
 		title: String,
-		isbn: String,
+		isbn: {
+			type: String, 
+			unique: true
+		}
 	},
 	liked: Boolean
 })
@@ -36,6 +38,8 @@ console.log("Books to add", books)
 	return Books.create(books, function(err, record){
 		if(err){
 			console.log("error at", err)
+		} else {
+			console.log("record created!")
 		}
 	})
 }
