@@ -18,11 +18,17 @@ class App extends React.Component {
     }
 	}
 
+	componentDidMount(){
+		this.search('Lahiri')
+	}
+
 	search(term){
 		console.log(`${term} was searched!`)
 		axios.post('/books', {
 			title: term
 		})
+		//can also use params object to set the term
+		//body parser only works on posting
 		.then((res) => {
 			console.log("This is data", res.data)
 			this.setState({
@@ -31,7 +37,9 @@ class App extends React.Component {
 				similar_books: res.data.similar_books
 			})	
 		})
-
+		.then(axios.get('/books')).then((resp){
+			console.log(resp)
+		})
 	}
 
 	render(){
@@ -47,6 +55,7 @@ class App extends React.Component {
 
 				<div className = "row">
 					<Related book={this.state.book} related={this.state.similar_books}/>
+					<History/>
 				</div>
 		</div>)
 	}
